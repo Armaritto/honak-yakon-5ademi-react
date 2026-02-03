@@ -1,0 +1,403 @@
+.quiz-page {
+    min-height: calc(100vh - 70px);
+    background-color: var(--light-gray);
+    padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.quiz-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    gap: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+.quiz-container {
+    max-width: 800px;
+    margin: var(--spacing-xl) auto;
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.quiz-header h1 {
+    color: var(--primary-blue);
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.quiz-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.quiz-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.control-btn {
+    background-color: var(--white);
+    color: var(--text-secondary);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--medium-gray);
+    transition: all var(--transition-normal);
+}
+
+.control-btn:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    background-color: #f0f7ff;
+}
+
+.control-btn.active {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+    box-shadow: var(--shadow-md);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 128, 0.15);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.calendar-modal {
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fafbfc;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--primary-blue);
+    font-weight: 700;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #ff4d4d;
+}
+
+.calendar-container {
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+}
+
+/* React Calendar Modern Styling */
+.calendar-container .react-calendar {
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    width: 100%;
+}
+
+.react-calendar__navigation {
+    margin-bottom: var(--spacing-md);
+    height: 44px;
+}
+
+.react-calendar__navigation button {
+    min-width: 44px;
+    background: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    border-radius: var(--radius-md);
+    transition: background 0.2s;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #f0f4f8;
+}
+
+.react-calendar__month-view__weekdays {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding-bottom: var(--spacing-sm);
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+}
+
+.react-calendar__tile {
+    padding: 12px 10px !important;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background-color: #f0f7ff !important;
+    color: var(--primary-blue) !important;
+}
+
+.react-calendar__tile--now {
+    background: #fff4cc !important;
+    color: #856404 !important;
+    font-weight: 700;
+}
+
+.react-calendar__tile--active {
+    background: var(--primary-blue) !important;
+    color: white !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__tile--disabled {
+    background-color: transparent !important;
+    color: #cbd5e1 !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.react-calendar__tile--hasActive {
+    background: #e6efff !important;
+}
+
+/* Custom indicator for solved dates if needed */
+/* Since tileDisabled is used in JSX, they are already greyed out */
+
+.quiz-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.quiz-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.stat-card {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-light-yellow) 100%);
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.stat-value {
+    color: var(--primary-blue);
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.quiz-section {
+    background-color: var(--white);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h2 {
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.section-header h3 {
+    color: var(--primary-blue);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.no-questions,
+.stats-placeholder {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--text-secondary);
+    background-color: var(--light-gray);
+    border-radius: var(--radius-md);
+}
+
+.quiz-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.question-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.question-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background-color: var(--primary-light-yellow);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--primary-yellow);
+    margin-top: var(--spacing-md);
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.form-checkbox label {
+    font-size: 1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.submit-quiz {
+    width: 100%;
+    margin-top: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius-lg);
+}
+
+@media (max-width: 768px) {
+    .quiz-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .quiz-controls {
+        flex-direction: column;
+    }
+
+    .control-btn {
+        width: 100%;
+    }
+
+    .quiz-stats {
+        grid-template-columns: 1fr;
+    }
+}
