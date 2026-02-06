@@ -15,9 +15,24 @@ const api = axios.create({
 // Add request interceptor to include JWT token
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('jwtToken');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        // Check if this is an admin request
+        const isAdminRequest = config.url && (
+            config.url.includes('/admin') ||
+            window.location.pathname.includes('/admin')
+        );
+
+        if (isAdminRequest) {
+            // Use admin token for admin requests
+            const adminToken = localStorage.getItem('adminToken');
+            if (adminToken) {
+                config.headers.Authorization = `Bearer ${adminToken}`;
+            }
+        } else {
+            // Use regular user token for regular requests
+            const token = localStorage.getItem('jwtToken');
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
         }
         return config;
     },
@@ -31,11 +46,21 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && error.response.status === 401) {
-            // Unauthorized - clear token and redirect to login
-            localStorage.removeItem('jwtToken');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('username');
-            window.location.href = '/login';
+            // Check if this was an admin request
+            const isAdminPage = window.location.pathname.includes('/admin');
+
+            if (isAdminPage) {
+                // Unauthorized admin - clear admin token and redirect to admin login
+                localStorage.removeItem('adminToken');
+                localStorage.removeItem('adminUsername');
+                window.location.href = '/admin-login';
+            } else {
+                // Unauthorized user - clear token and redirect to login
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('username');
+                window.location.href = '/login';
+            }
         }
         return Promise.reject(error);
     }

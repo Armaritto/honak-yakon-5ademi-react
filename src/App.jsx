@@ -3,7 +3,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Quiz from './pages/Quiz';
 import Progress from './pages/Progress';
+import AdminLogin from './pages/AdminLogin';
+import AdminController from './pages/AdminController';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminProtectedRoute from './components/AdminProtectedRoute';
 import './App.css';
 
 function App() {
@@ -28,6 +31,15 @@ function App() {
               <ProtectedRoute>
                 <Progress />
               </ProtectedRoute>
+            }
+          />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route
+            path="/admin-controller"
+            element={
+              <AdminProtectedRoute>
+                <AdminController />
+              </AdminProtectedRoute>
             }
           />
         </Routes>

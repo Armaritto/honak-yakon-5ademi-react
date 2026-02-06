@@ -6,7 +6,6 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    Legend,
     ResponsiveContainer,
     Cell,
 } from 'recharts';
@@ -15,9 +14,10 @@ import api from '../config/api';
 import './Progress.css';
 
 const Progress = () => {
-    const [progressData, setProgressData] = useState([]);
+    const [todayData, setTodayData] = useState([]);
+    const [totalData, setTotalData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [viewMode, setViewMode] = useState('total'); // 'today' or 'total'
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchProgressData();
@@ -25,34 +25,36 @@ const Progress = () => {
 
     const fetchProgressData = async () => {
         setLoading(true);
+        setError(null);
         try {
-            // This endpoint should be created in your backend
-            // For now, using mock data based on the image
-            const mockData = [
-                { khedma: 'يسوع يحبك', today: 120, total: 13451 },
-                { khedma: 'شباب', today: 98, total: 11839 },
-                { khedma: 'ابتدائي بنين', today: 85, total: 10463 },
-                { khedma: 'الكشافة', today: 102, total: 10338 },
-                { khedma: 'أخوة فرح', today: 75, total: 8692 },
-                { khedma: 'فيلا الكنج', today: 65, total: 6396 },
-                { khedma: 'اعدادي بنت', today: 58, total: 6045 },
-                { khedma: 'ثانوي بنين', today: 52, total: 5567 },
-                { khedma: 'كشكشي الصغيرة', today: 48, total: 5094 },
-            ];
+            // Fetch both today and total progress data
+            const [todayResponse, totalResponse] = await Promise.all([
+                api.get('/progress/today'),
+                api.get('/progress/total')
+            ]);
 
-            setProgressData(mockData);
+            // Transform the ProgressDTO data to chart format
+            setTodayData(todayResponse.data.map(item => ({
+                name: item.name,
+                value: item.progress
+            })));
+
+            setTotalData(totalResponse.data.map(item => ({
+                name: item.name,
+                value: item.progress
+            })));
         } catch (err) {
             console.error('Error fetching progress data:', err);
+            setError('فشل في تحميل البيانات. يرجى المحاولة مرة أخرى.');
         } finally {
             setLoading(false);
         }
     };
 
-    const getChartData = () => {
-        return progressData.map((item) => ({
-            name: item.khedma,
-            value: viewMode === 'today' ? item.today : item.total,
-        }));
+    // Generate colors for bars
+    const getBarColor = (index) => {
+        const colors = ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#06B6D4'];
+        return colors[index % colors.length];
     };
 
     if (loading) {
@@ -67,75 +69,137 @@ const Progress = () => {
         );
     }
 
+    if (error) {
+        return (
+            <>
+                <Navbar />
+                <div className="progress-error">
+                    <p>{error}</p>
+                    <button onClick={fetchProgressData} className="retry-btn">
+                        إعادة المحاولة
+                    </button>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <Navbar />
             <div className="progress-page">
-                <div className="progress-container">
-                    <div className="progress-header">
-                        <div className="header-left">
-                            <button className="menu-btn">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </button>
-                            <h1>Progress</h1>
-                        </div>
+                <div className="progress-header-title">
+                    <h1>الإحصائيات العامة</h1>
+                </div>
 
-                        <div className="toggle-container">
-                            <button
-                                className={`toggle-btn ${viewMode === 'today' ? 'active' : ''}`}
-                                onClick={() => setViewMode('today')}
-                            >
-                                today
-                            </button>
-                            <button
-                                className={`toggle-btn ${viewMode === 'total' ? 'active' : ''}`}
-                                onClick={() => setViewMode('total')}
-                            >
-                                total
-                            </button>
+                <div className="progress-charts-wrapper">
+                    {/* Today's Progress Chart */}
+                    <div className="chart-section">
+                        <div className="chart-header">
+                            <h2>تقدم اليوم</h2>
+                        </div>
+                        <div className="chart-container">
+                            {todayData.length > 0 ? (
+                                <ResponsiveContainer width="100%" height={400}>
+                                    <BarChart
+                                        data={todayData}
+                                        layout="vertical"
+                                        margin={{ top: 20, right: 50, left: 120, bottom: 20 }}
+                                    >
+                                        <CartesianGrid
+                                            strokeDasharray="3 3"
+                                            stroke="#E5E7EB"
+                                            horizontal={false}
+                                        />
+                                        <XAxis
+                                            type="number"
+                                            tick={{ fill: '#6B7280', fontSize: 12 }}
+                                            stroke="#E5E7EB"
+                                        />
+                                        <YAxis
+                                            type="category"
+                                            dataKey="name"
+                                            tick={{ fill: '#374151', fontSize: 13, fontFamily: 'Cairo, sans-serif' }}
+                                            stroke="#E5E7EB"
+                                            width={110}
+                                        />
+                                        <Tooltip
+                                            contentStyle={{
+                                                backgroundColor: '#FFFFFF',
+                                                border: 'none',
+                                                borderRadius: '8px',
+                                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                                fontFamily: 'Cairo, sans-serif',
+                                            }}
+                                            cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }}
+                                        />
+                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="#5DD9D9">
+                                            {todayData.map((entry, index) => (
+                                                <Cell key={`cell-today-${index}`} fill="#5DD9D9" />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            ) : (
+                                <div className="no-data">
+                                    <p>لا توجد بيانات متاحة لليوم</p>
+                                </div>
+                            )}
                         </div>
                     </div>
 
-                    <div className="chart-container">
-                        <ResponsiveContainer width="100%" height={500}>
-                            <BarChart
-                                data={getChartData()}
-                                layout="vertical"
-                                margin={{ top: 20, right: 30, left: 100, bottom: 20 }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                                <XAxis type="number" />
-                                <YAxis
-                                    type="category"
-                                    dataKey="name"
-                                    tick={{ fill: '#212121', fontSize: 14 }}
-                                />
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: '#FFFFFF',
-                                        border: '1px solid #E0E0E0',
-                                        borderRadius: '8px',
-                                        fontFamily: 'Cairo',
-                                    }}
-                                />
-                                <Bar dataKey="value" radius={[0, 8, 8, 0]}>
-                                    {getChartData().map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill="#5DD9D9" />
-                                    ))}
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </div>
-
-                    <div className="chart-legend">
-                        {getChartData().map((item, index) => (
-                            <div key={index} className="legend-item">
-                                <span className="legend-bar" style={{ width: `${(item.value / Math.max(...getChartData().map(d => d.value))) * 100}%` }}></span>
-                                <span className="legend-value">{item.value}</span>
-                            </div>
-                        ))}
+                    {/* Total Progress Chart */}
+                    <div className="chart-section">
+                        <div className="chart-header">
+                            <h2>التقدم الإجمالي</h2>
+                        </div>
+                        <div className="chart-container">
+                            {totalData.length > 0 ? (
+                                <ResponsiveContainer width="100%" height={400}>
+                                    <BarChart
+                                        data={totalData}
+                                        layout="vertical"
+                                        margin={{ top: 20, right: 50, left: 120, bottom: 20 }}
+                                    >
+                                        <CartesianGrid
+                                            strokeDasharray="3 3"
+                                            stroke="#E5E7EB"
+                                            horizontal={false}
+                                        />
+                                        <XAxis
+                                            type="number"
+                                            tick={{ fill: '#6B7280', fontSize: 12 }}
+                                            stroke="#E5E7EB"
+                                        />
+                                        <YAxis
+                                            type="category"
+                                            dataKey="name"
+                                            tick={{ fill: '#374151', fontSize: 13, fontFamily: 'Cairo, sans-serif' }}
+                                            stroke="#E5E7EB"
+                                            width={110}
+                                        />
+                                        <Tooltip
+                                            contentStyle={{
+                                                backgroundColor: '#FFFFFF',
+                                                border: 'none',
+                                                borderRadius: '8px',
+                                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                                fontFamily: 'Cairo, sans-serif',
+                                            }}
+                                            cursor={{ fill: 'rgba(139, 92, 246, 0.1)' }}
+                                        />
+                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="#5DD9D9">
+                                            {totalData.map((entry, index) => (
+                                                <Cell key={`cell-total-${index}`} fill="#5DD9D9" />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            ) : (
+                                <div className="no-data">
+                                    <p>لا توجد بيانات متاحة</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

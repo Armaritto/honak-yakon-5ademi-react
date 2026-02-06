@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login, isAuthenticated } from '../services/authService';
+import { IoBookSharp } from 'react-icons/io5';
 import './Login.css';
 
 const Login = () => {
@@ -47,8 +48,9 @@ const Login = () => {
             <div className="login-container">
                 <div className="login-card">
                     <div className="login-header">
-                        <h1>تسجيل الدخول</h1>
-                        <p>مرحباً بك في لوحة إحصائيات الخدمة</p>
+                        <div className="login-header-icon"><IoBookSharp /></div>
+                        <h1>هناك يكون خادمي</h1>
+                        <p>تسجيل الدخول</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="login-form">

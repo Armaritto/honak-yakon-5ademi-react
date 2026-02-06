@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register, isAuthenticated } from '../services/authService';
 import { getKhedmas } from '../services/quizService';
+import { IoBookSharp } from 'react-icons/io5';
 import './Register.css';
 
 const Register = () => {
@@ -75,8 +76,9 @@ const Register = () => {
             <div className="register-container">
                 <div className="register-card">
                     <div className="register-header">
-                        <h1>تسجيل حساب جديد</h1>
-                        <p>أنشئ حساباً جديداً لمتابعة خدمتك اليومية</p>
+                        <div className="register-header-icon"><IoBookSharp /></div>
+                        <h1>هناك يكون خادمي</h1>
+                        <p>تسجيل حساب جديد</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="register-form">

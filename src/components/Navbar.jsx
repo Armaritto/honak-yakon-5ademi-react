@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { logout, getUsername } from '../services/authService';
+import { FaChurch } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -15,18 +16,21 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 <div className="navbar-brand">
+                    <div className="brand-logo">
+                        <FaChurch size={35} color="#00008B" />
+                    </div>
                     <div className="brand-text">
-                        <span className="brand-greeting">هناك يكون خادمي</span>
-                        {username && <span className="brand-user">{username}</span>}
+                        <div className="brand-title">هناك يكون خادمي</div>
+                        <div className="brand-subtitle">«إن كان أحد يخدمني فليتبعني» (يوحنا 12:26)</div>
                     </div>
                 </div>
 
                 <div className="navbar-menu">
                     <Link to="/quiz" className="nav-link">
-                        الإحصائيات
+                        المتابعة
                     </Link>
                     <Link to="/progress" className="nav-link">
-                        التقدم
+                        الإحصائيات
                     </Link>
                     <button onClick={handleLogout} className="nav-button">
                         تسجيل الخروج
