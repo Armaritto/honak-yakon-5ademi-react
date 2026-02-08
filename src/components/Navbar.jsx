@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { logout, getUsername } from '../services/authService';
-import { FaChurch } from 'react-icons/fa';
+import { FaChurch, FaSignOutAlt } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -33,6 +33,7 @@ const Navbar = () => {
                         الإحصائيات
                     </Link>
                     <button onClick={handleLogout} className="nav-button">
+                        <FaSignOutAlt className="logout-icon" />
                         تسجيل الخروج
                     </button>
                 </div>

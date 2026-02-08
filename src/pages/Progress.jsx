@@ -99,11 +99,11 @@ const Progress = () => {
                         </div>
                         <div className="chart-container">
                             {todayData.length > 0 ? (
-                                <ResponsiveContainer width="100%" height={400}>
+                                <ResponsiveContainer width="100%" height={350}>
                                     <BarChart
                                         data={todayData}
                                         layout="vertical"
-                                        margin={{ top: 20, right: 50, left: 120, bottom: 20 }}
+                                        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
                                     >
                                         <CartesianGrid
                                             strokeDasharray="3 3"
@@ -112,25 +112,21 @@ const Progress = () => {
                                         />
                                         <XAxis
                                             type="number"
-                                            tick={{ fill: '#6B7280', fontSize: 12 }}
+                                            domain={[0, 'dataMax']}
+                                            allowDecimals={false}
+                                            tickFormatter={(value) => Math.floor(value)}
+                                            tick={{ fill: '#6B7280', fontSize: 11 }}
                                             stroke="#E5E7EB"
+                                            axisLine={false}
                                         />
                                         <YAxis
                                             type="category"
                                             dataKey="name"
-                                            tick={{ fill: '#374151', fontSize: 13, fontFamily: 'Cairo, sans-serif' }}
+                                            tick={{ fill: '#374151', fontSize: 11, fontFamily: 'Cairo, sans-serif' }}
                                             stroke="#E5E7EB"
-                                            width={110}
-                                        />
-                                        <Tooltip
-                                            contentStyle={{
-                                                backgroundColor: '#FFFFFF',
-                                                border: 'none',
-                                                borderRadius: '8px',
-                                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                                                fontFamily: 'Cairo, sans-serif',
-                                            }}
-                                            cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }}
+                                            axisLine={false}
+                                            tickLine={false}
+                                            width={70}
                                         />
                                         <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="#5DD9D9">
                                             {todayData.map((entry, index) => (
@@ -154,11 +150,11 @@ const Progress = () => {
                         </div>
                         <div className="chart-container">
                             {totalData.length > 0 ? (
-                                <ResponsiveContainer width="100%" height={400}>
+                                <ResponsiveContainer width="100%" height={350}>
                                     <BarChart
                                         data={totalData}
                                         layout="vertical"
-                                        margin={{ top: 20, right: 50, left: 120, bottom: 20 }}
+                                        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
                                     >
                                         <CartesianGrid
                                             strokeDasharray="3 3"
@@ -167,25 +163,21 @@ const Progress = () => {
                                         />
                                         <XAxis
                                             type="number"
-                                            tick={{ fill: '#6B7280', fontSize: 12 }}
+                                            domain={[0, 'dataMax']}
+                                            allowDecimals={false}
+                                            tickFormatter={(value) => Math.floor(value)}
+                                            tick={{ fill: '#6B7280', fontSize: 11 }}
                                             stroke="#E5E7EB"
+                                            axisLine={false}
                                         />
                                         <YAxis
                                             type="category"
                                             dataKey="name"
-                                            tick={{ fill: '#374151', fontSize: 13, fontFamily: 'Cairo, sans-serif' }}
+                                            tick={{ fill: '#374151', fontSize: 11, fontFamily: 'Cairo, sans-serif' }}
                                             stroke="#E5E7EB"
-                                            width={110}
-                                        />
-                                        <Tooltip
-                                            contentStyle={{
-                                                backgroundColor: '#FFFFFF',
-                                                border: 'none',
-                                                borderRadius: '8px',
-                                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                                                fontFamily: 'Cairo, sans-serif',
-                                            }}
-                                            cursor={{ fill: 'rgba(139, 92, 246, 0.1)' }}
+                                            axisLine={false}
+                                            tickLine={false}
+                                            width={70}
                                         />
                                         <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="#5DD9D9">
                                             {totalData.map((entry, index) => (

@@ -63,7 +63,7 @@
 /* Charts Wrapper - Side by Side Layout */
 .progress-charts-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-2xl);
     max-width: 1400px;
     margin: 0 auto;
@@ -105,6 +105,7 @@
     border-radius: 12px;
     padding: var(--spacing-lg);
     min-height: 400px;
+    direction: ltr;
 }
 
 /* No Data State */
@@ -147,39 +148,15 @@
 
 @media (max-width: 768px) {
     .progress-page {
-        padding: var(--spacing-lg);
-    }
-
-    .progress-header-title h1 {
-        font-size: 2rem;
-    }
-
-    .chart-section {
-        padding: var(--spacing-lg);
-    }
-
-    .chart-header h2 {
-        font-size: 1.25rem;
-    }
-
-    .progress-charts-wrapper {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-    }
-
-    .chart-container {
-        padding: var(--spacing-md);
-        overflow-x: auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .progress-page {
         padding: var(--spacing-md);
     }
 
+    .progress-header-title {
+        margin-bottom: var(--spacing-lg);
+    }
+
     .progress-header-title h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
     }
 
     .chart-section {
@@ -190,7 +167,51 @@
         font-size: 1.125rem;
     }
 
+    .progress-charts-wrapper {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
     .chart-container {
         padding: var(--spacing-sm);
+        overflow-x: auto;
+        min-height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-page {
+        padding: var(--spacing-sm);
+    }
+
+    .progress-header-title {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .progress-header-title h1 {
+        font-size: 1.375rem;
+    }
+
+    .chart-section {
+        padding: var(--spacing-sm);
+        border-radius: 12px;
+    }
+
+    .chart-header {
+        margin-bottom: var(--spacing-md);
+        padding-bottom: var(--spacing-sm);
+    }
+
+    .chart-header h2 {
+        font-size: 1rem;
+    }
+
+    .chart-container {
+        padding: var(--spacing-xs);
+        min-height: 320px;
+    }
+
+    .progress-charts-wrapper {
+        gap: var(--spacing-sm);
     }
 }
