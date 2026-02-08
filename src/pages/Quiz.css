@@ -349,24 +349,122 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    padding: var(--spacing-lg);
-    background-color: var(--primary-light-yellow);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--primary-yellow);
-    margin-top: var(--spacing-md);
-}
-
-.form-checkbox input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0, 0, 128, 0.1);
+    margin-top: var(--spacing-lg);
     cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(0, 0, 128, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
-.form-checkbox label {
+.form-checkbox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+            rgba(0, 0, 128, 0.03) 0%,
+            rgba(255, 215, 0, 0.05) 100%);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.form-checkbox:hover {
+    border-color: var(--primary-blue);
+    box-shadow: 0 6px 20px rgba(0, 0, 128, 0.12);
+    transform: translateY(-2px);
+}
+
+.form-checkbox:hover::before {
+    opacity: 1;
+}
+
+/* Hide native checkbox */
+.form-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Custom checkbox container */
+.form-checkbox .checkbox-custom {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    background: linear-gradient(145deg, #ffffff, #f0f4f8);
+    border: 2px solid var(--medium-gray);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.05),
+        0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Checkmark icon */
+.form-checkbox .checkbox-custom::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    top: 3px;
+    left: 7px;
+}
+
+/* Checked state */
+.form-checkbox input[type="checkbox"]:checked+.checkbox-custom {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #1a1a6e 100%);
+    border-color: var(--primary-blue);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 128, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.form-checkbox input[type="checkbox"]:checked+.checkbox-custom::after {
+    transform: rotate(45deg) scale(1);
+}
+
+/* Focus state */
+.form-checkbox input[type="checkbox"]:focus+.checkbox-custom {
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 128, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover state for checkbox */
+.form-checkbox:hover .checkbox-custom {
+    border-color: var(--primary-blue);
+}
+
+/* Label styling */
+.form-checkbox .checkbox-label {
     font-size: 1rem;
     color: var(--text-primary);
     cursor: pointer;
     user-select: none;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    transition: color var(--transition-fast);
+}
+
+.form-checkbox:hover .checkbox-label {
+    color: var(--primary-blue);
 }
 
 .submit-quiz {

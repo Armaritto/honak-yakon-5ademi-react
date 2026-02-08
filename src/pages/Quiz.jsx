@@ -279,12 +279,11 @@ const Quiz = () => {
                                         </div>
                                     ))}
 
-                                    <div className="form-checkbox">
+                                    <label className="form-checkbox">
                                         <input type="checkbox" id="confirm-checkbox" />
-                                        <label htmlFor="confirm-checkbox">
-                                            أقر بأن كافة الإجابات اليوم
-                                        </label>
-                                    </div>
+                                        <span className="checkbox-custom"></span>
+                                        <span className="checkbox-label">أقر بأن كافة الإجابات اليوم</span>
+                                    </label>
 
                                     <button
                                         type="submit"
