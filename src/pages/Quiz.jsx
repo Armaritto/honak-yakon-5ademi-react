@@ -202,7 +202,6 @@ const Quiz = () => {
                 <div className="quiz-container">
                     <div className="quiz-header">
                         <h1>تسجيل متابعة الخدمة</h1>
-                        <p>يرجى ملء الاستمارة أدناه ببياناتك وإجابات الأسئلة الروحية</p>
                     </div>
 
                     {successMessage && (
