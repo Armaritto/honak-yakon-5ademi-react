@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { FaTrophy } from 'react-icons/fa';
+import { FaFire } from 'react-icons/fa';
 import {
     getTodayQuiz,
     getPreviousQuiz,
@@ -28,6 +28,7 @@ const Quiz = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchSolvedDates();
         fetchTodayQuiz();
     }, []);
@@ -231,7 +232,7 @@ const Quiz = () => {
                         <div className="quiz-header-content">
                             <h1>اهلا {getUsername().trim().split(' ')[0]}</h1>
                             <div className="points-display">
-                                <FaTrophy className="trophy-icon" />
+                                <FaFire className="trophy-icon" />
                                 <span className="points-count">{solvedDates.length}</span>
                             </div>
                         </div>

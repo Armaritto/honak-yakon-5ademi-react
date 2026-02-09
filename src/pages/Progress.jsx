@@ -21,6 +21,7 @@ const Progress = () => {
     const [viewMode, setViewMode] = useState('today');
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchProgressData();
     }, []);
 
