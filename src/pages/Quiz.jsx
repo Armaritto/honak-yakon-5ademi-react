@@ -36,7 +36,9 @@ const Quiz = () => {
     const fetchSolvedDates = async () => {
         try {
             const dates = await getSolvedQuizDates();
-            const parsedDates = dates.map((d) => new Date(d));
+            // Ensure dates is always an array
+            const datesArray = Array.isArray(dates) ? dates : [];
+            const parsedDates = datesArray.map((d) => new Date(d));
             setSolvedDates(parsedDates);
 
             // Check if today's quiz is already solved
@@ -48,6 +50,7 @@ const Quiz = () => {
             setIsTodayQuizSolved(isSolved);
         } catch (err) {
             console.error('Error fetching solved dates:', err);
+            setSolvedDates([]);
         }
     };
 
@@ -57,7 +60,7 @@ const Quiz = () => {
             const data = await getTodayQuiz();
             setQuiz(data);
             setQuizMode('today');
-            initializeAnswers(data.questionDTOS);
+            initializeAnswers(data?.questionDTOS || []);
         } catch (err) {
             console.error('Error fetching today quiz:', err);
         } finally {
@@ -71,7 +74,7 @@ const Quiz = () => {
             const data = await getPreviousQuiz();
             setQuiz(data);
             setQuizMode('previous');
-            initializeAnswers(data.questionDTOS);
+            initializeAnswers(data?.questionDTOS || []);
         } catch (err) {
             console.error('Error fetching previous quiz:', err);
         } finally {
@@ -85,7 +88,7 @@ const Quiz = () => {
             const data = await getQuizByDate(date);
             setQuiz(data);
             setQuizMode('date');
-            initializeAnswers(data.questionDTOS);
+            initializeAnswers(data?.questionDTOS || []);
             setShowCalendar(false);
         } catch (err) {
             console.error('Error fetching quiz by date:', err);
@@ -96,7 +99,8 @@ const Quiz = () => {
 
     const initializeAnswers = (questions) => {
         const initialAnswers = {};
-        questions.forEach((q, index) => {
+        const questionsArray = Array.isArray(questions) ? questions : [];
+        questionsArray.forEach((q, index) => {
             initialAnswers[index] = '';
         });
         setAnswers(initialAnswers);
@@ -306,7 +310,7 @@ const Quiz = () => {
                             <h2>تم إكمال متابعة اليوم بنجاح!</h2>
                             <p>شكراً لك على متابعة خدمتك الروحية.</p>
                         </div>
-                    ) : quiz && quiz.questionDTOS.length > 0 ? (
+                    ) : quiz && quiz.questionDTOS && quiz.questionDTOS.length > 0 ? (
                         <div className="quiz-content">
                             <form onSubmit={handleSubmit} className="quiz-form">
                                 <div className="quiz-section">
@@ -354,7 +358,7 @@ const Quiz = () => {
                                 </div>
                             </form>
                         </div>
-                    ) : quiz && quiz.questionDTOS.length === 0 ? (
+                    ) : quiz && quiz.questionDTOS && quiz.questionDTOS.length === 0 ? (
                         <div className="no-questions">
                             <p>لا توجد أسئلة متاحة لهذا التاريخ</p>
                         </div>

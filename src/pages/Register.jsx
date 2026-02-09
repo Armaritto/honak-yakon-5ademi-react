@@ -28,9 +28,12 @@ const Register = () => {
     const fetchKhedmas = async () => {
         try {
             const data = await getKhedmas();
-            setKhedmas(data);
+            // Ensure data is always an array
+            setKhedmas(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error('Error fetching khedmas:', err);
+            // Set empty array on error
+            setKhedmas([]);
         }
     };
 
