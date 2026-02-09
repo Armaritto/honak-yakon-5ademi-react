@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { FaTrophy } from 'react-icons/fa';
 import {
     getTodayQuiz,
     getPreviousQuiz,
@@ -9,6 +10,7 @@ import {
     getSolvedQuizDates,
     submitResponse,
 } from '../services/quizService';
+import { getUsername } from '../services/authService';
 import Navbar from '../components/Navbar';
 import './Quiz.css';
 
@@ -226,7 +228,13 @@ const Quiz = () => {
             <div className="quiz-page">
                 <div className="quiz-container">
                     <div className="quiz-header">
-                        <h1>تسجيل متابعة الخدمة</h1>
+                        <div className="quiz-header-content">
+                            <h1>اهلا {getUsername().trim().split(' ')[0]}</h1>
+                            <div className="points-display">
+                                <FaTrophy className="trophy-icon" />
+                                <span className="points-count">{solvedDates.length}</span>
+                            </div>
+                        </div>
                     </div>
 
                     {successMessage && (
