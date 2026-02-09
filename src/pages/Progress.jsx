@@ -119,7 +119,7 @@ const Progress = () => {
                                     >
                                         <CartesianGrid
                                             strokeDasharray="3 3"
-                                            stroke="#E5E7EB"
+                                            stroke="#8f9195ff"
                                             horizontal={false}
                                         />
                                         <XAxis
