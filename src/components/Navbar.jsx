@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { logout, getUsername } from '../services/authService';
-import { FaChurch, FaSignOutAlt, FaBookOpen, FaChartBar } from 'react-icons/fa';
+import { FaSignOutAlt, FaBookOpen, FaChartBar } from 'react-icons/fa';
+import logo from '../assets/logo.png';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -22,7 +23,7 @@ const Navbar = () => {
             <div className="navbar-container">
                 <div className="navbar-brand">
                     <div className="brand-logo">
-                        <FaChurch size={20} color="#00008B" />
+                        <img src={logo} alt="Logo" className="navbar-logo" />
                     </div>
                     <div className="brand-text">
                         <div className="brand-title">هناك يكون خادمي</div>

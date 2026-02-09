@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register, isAuthenticated } from '../services/authService';
 import { getKhedmas } from '../services/quizService';
-import { FaChurch } from 'react-icons/fa';
+import logo from '../assets/logo.png';
 import './Register.css';
 
 const Register = () => {
@@ -76,7 +76,7 @@ const Register = () => {
             <div className="register-container">
                 <div className="register-card">
                     <div className="register-header">
-                        <div className="register-header-icon"><FaChurch /></div>
+                        <div className="register-header-icon"><img src={logo} alt="Logo" className="register-logo" /></div>
                         <h1>هناك يكون خادمي</h1>
                         <p>تسجيل حساب جديد</p>
                     </div>

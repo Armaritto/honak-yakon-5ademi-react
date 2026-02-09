@@ -85,8 +85,8 @@
 }
 
 .register-header-icon {
-    width: 70px;
-    height: 70px;
+    width: 130px;
+    height: 130px;
     background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
     border-radius: 16px;
     display: flex;
@@ -97,6 +97,13 @@
     font-size: 2rem;
     transform: rotate(-5deg);
     animation: iconFloat 3s ease-in-out infinite;
+}
+
+.register-logo {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 @keyframes iconFloat {
@@ -257,8 +264,8 @@
     }
 
     .register-header-icon {
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 100px;
         font-size: 1.75rem;
     }
 

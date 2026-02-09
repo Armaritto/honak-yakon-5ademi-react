@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login, isAuthenticated } from '../services/authService';
 import './Login.css';
-import { FaChurch } from 'react-icons/fa';
+import logo from '../assets/logo.png';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ const Login = () => {
             <div className="login-container">
                 <div className="login-card">
                     <div className="login-header">
-                        <div className="login-header-icon"><FaChurch /></div>
+                        <div className="login-header-icon"><img src={logo} alt="Logo" className="login-logo" /></div>
                         <h1>هناك يكون خادمي</h1>
                         <p>تسجيل الدخول</p>
                     </div>
