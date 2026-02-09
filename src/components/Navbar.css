@@ -29,7 +29,7 @@
     justify-content: center;
     width: 35px;
     height: 35px;
-    background: linear-gradient(145deg, #FFE44D 0%, #FFD700 50%, #E6C200 100%);
+    background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
     border-radius: 50%;
     box-shadow:
         0 4px 15px rgba(255, 215, 0, 0.4),
@@ -229,14 +229,14 @@
 }
 
 .nav-icon-link.active {
-    background: linear-gradient(145deg, #FFE44D 0%, #FFD700 50%, #E6C200 100%);
+    background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
     border-color: #FFD700;
     color: #00008B;
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .nav-icon-link.active:hover {
-    background: linear-gradient(145deg, #FFE44D 0%, #FFD700 50%, #E6C200 100%);
+    background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
     color: #00008B;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);

@@ -291,7 +291,7 @@
 
 .quiz-section {
     background-color: var(--white);
-    padding: var(--spacing-2xl);
+    padding: var(--spacing-2xl) var(--spacing-md);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -337,7 +337,7 @@
 .question-card {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
 }
 
 .question-label {
@@ -345,6 +345,26 @@
     color: var(--text-primary);
     font-size: 1rem;
 }
+
+.question-card textarea {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-sm);
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: 'Cairo', sans-serif;
+    transition: all var(--transition-fast);
+    direction: rtl;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.question-card textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+}
+
 
 .form-checkbox {
     display: flex;
@@ -356,10 +376,13 @@
     border: 1px solid gold;
     margin-top: var(--spacing-lg);
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: background 0.2s ease, border-color 0.2s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 128, 0.08);
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
 }
 
 .form-checkbox::before {
@@ -377,13 +400,30 @@
 }
 
 .form-checkbox:hover {
-    border-color: 1px solid gold;
-    transform: translateY(-2px);
+    border-color: gold;
 }
 
 .form-checkbox:hover::before {
     opacity: 1;
 }
+
+/* Prevent blue flash on click/active state */
+.form-checkbox:active,
+.form-checkbox:focus,
+.form-checkbox:focus-within {
+    outline: none;
+    background: #ffd7001a !important;
+    border-color: gold !important;
+    transform: none !important;
+}
+
+.form-checkbox:active::before,
+.form-checkbox:focus::before,
+.form-checkbox:focus-within::before {
+    opacity: 0 !important;
+}
+
+
 
 /* Hide native checkbox */
 .form-checkbox input[type="checkbox"] {
@@ -506,7 +546,7 @@
 /* Already Solved Message Styling */
 .already-solved-message {
     background-color: var(--white);
-    padding: var(--spacing-2xl);
+    padding: var(--spacing-2xl) var(--spacing-md);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     text-align: center;
