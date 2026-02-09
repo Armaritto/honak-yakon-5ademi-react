@@ -18,6 +18,7 @@ const Progress = () => {
     const [totalData, setTotalData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [viewMode, setViewMode] = useState('today');
 
     useEffect(() => {
         fetchProgressData();
@@ -51,11 +52,6 @@ const Progress = () => {
         }
     };
 
-    // Generate colors for bars
-    const getBarColor = (index) => {
-        const colors = ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#06B6D4'];
-        return colors[index % colors.length];
-    };
 
     if (loading) {
         return (
@@ -91,68 +87,33 @@ const Progress = () => {
                     <h1>الإحصائيات العامة</h1>
                 </div>
 
-                <div className="progress-charts-wrapper">
-                    {/* Today's Progress Chart */}
-                    <div className="chart-section">
-                        <div className="chart-header">
-                            <h2>تقدم اليوم</h2>
-                        </div>
-                        <div className="chart-container">
-                            {todayData.length > 0 ? (
-                                <ResponsiveContainer width="100%" height={350}>
-                                    <BarChart
-                                        data={todayData}
-                                        layout="vertical"
-                                        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
-                                    >
-                                        <CartesianGrid
-                                            strokeDasharray="3 3"
-                                            stroke="#E5E7EB"
-                                            horizontal={false}
-                                        />
-                                        <XAxis
-                                            type="number"
-                                            domain={[0, 'dataMax']}
-                                            allowDecimals={false}
-                                            tickFormatter={(value) => Math.floor(value)}
-                                            tick={{ fill: '#6B7280', fontSize: 11 }}
-                                            stroke="#E5E7EB"
-                                            axisLine={false}
-                                        />
-                                        <YAxis
-                                            type="category"
-                                            dataKey="name"
-                                            tick={{ fill: '#374151', fontSize: 11, fontFamily: 'Cairo, sans-serif' }}
-                                            stroke="#E5E7EB"
-                                            axisLine={false}
-                                            tickLine={false}
-                                            width={70}
-                                        />
-                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="#5DD9D9">
-                                            {todayData.map((entry, index) => (
-                                                <Cell key={`cell-today-${index}`} fill="#5DD9D9" />
-                                            ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            ) : (
-                                <div className="no-data">
-                                    <p>لا توجد بيانات متاحة لليوم</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                {/* Toggle Button */}
+                <div className="progress-toggle-container">
+                    <button
+                        className={`toggle-btn ${viewMode === 'today' ? 'active' : ''}`}
+                        onClick={() => setViewMode('today')}
+                    >
+                        تقدم اليوم
+                    </button>
+                    <button
+                        className={`toggle-btn ${viewMode === 'total' ? 'active' : ''}`}
+                        onClick={() => setViewMode('total')}
+                    >
+                        التقدم الإجمالي
+                    </button>
+                </div>
 
-                    {/* Total Progress Chart */}
+                <div className="progress-charts-wrapper">
+                    {/* Single Chart Section */}
                     <div className="chart-section">
                         <div className="chart-header">
-                            <h2>التقدم الإجمالي</h2>
+                            <h2>{viewMode === 'today' ? 'تقدم اليوم' : 'التقدم الإجمالي'}</h2>
                         </div>
                         <div className="chart-container">
-                            {totalData.length > 0 ? (
+                            {(viewMode === 'today' ? todayData : totalData).length > 0 ? (
                                 <ResponsiveContainer width="100%" height={350}>
                                     <BarChart
-                                        data={totalData}
+                                        data={viewMode === 'today' ? todayData : totalData}
                                         layout="vertical"
                                         margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
                                     >
@@ -179,16 +140,16 @@ const Progress = () => {
                                             tickLine={false}
                                             width={70}
                                         />
-                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="#5DD9D9">
-                                            {totalData.map((entry, index) => (
-                                                <Cell key={`cell-total-${index}`} fill="#5DD9D9" />
+                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="var(--primary-blue)">
+                                            {(viewMode === 'today' ? todayData : totalData).map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill="var(--primary-blue)" />
                                             ))}
                                         </Bar>
                                     </BarChart>
                                 </ResponsiveContainer>
                             ) : (
                                 <div className="no-data">
-                                    <p>لا توجد بيانات متاحة</p>
+                                    <p>{viewMode === 'today' ? 'لا توجد بيانات متاحة لليوم' : 'لا توجد بيانات متاحة'}</p>
                                 </div>
                             )}
                         </div>

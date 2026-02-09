@@ -31,7 +31,7 @@
 
 .retry-btn {
     padding: var(--spacing-md) var(--spacing-xl);
-    background-color: #3B82F6;
+    background-color: var(--primary-blue);
     color: white;
     border-radius: var(--radius-md);
     font-weight: 600;
@@ -39,9 +39,9 @@
 }
 
 .retry-btn:hover {
-    background-color: #2563EB;
+    background-color: var(--primary-blue);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px var(--primary-blue);
 }
 
 /* Header */
@@ -59,6 +59,39 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+/* Toggle Buttons */
+.progress-toggle-container {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.toggle-btn {
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background-color: #e3e9ef;
+    color: var(--primary-blue);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.toggle-btn:hover {
+    background-color: #d6dee6;
+    transform: translateY(-2px);
+}
+
+.toggle-btn.active {
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+    box-shadow: 0 4px 12px var(--primary-blue);
+}
+
 
 /* Charts Wrapper - Side by Side Layout */
 .progress-charts-wrapper {
@@ -112,7 +145,7 @@
     width: 50px;
     height: 50px;
     border: 4px solid #E0E0E0;
-    border-top-color: #3B82F6;
+    border-top-color: var(--primary-blue);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -142,6 +175,16 @@
 
     .progress-header-title h1 {
         font-size: 1.75rem;
+    }
+
+    .progress-toggle-container {
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .toggle-btn {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 0.875rem;
     }
 
     .chart-section {
@@ -175,6 +218,19 @@
 
     .progress-header-title h1 {
         font-size: 1.375rem;
+    }
+
+    .progress-toggle-container {
+        gap: var(--spacing-xs);
+        margin-bottom: var(--spacing-md);
+        flex-wrap: wrap;
+    }
+
+    .toggle-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.813rem;
+        flex: 1;
+        min-width: 120px;
     }
 
     .chart-section {
