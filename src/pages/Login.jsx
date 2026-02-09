@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login, isAuthenticated } from '../services/authService';
-import { IoBookSharp } from 'react-icons/io5';
 import './Login.css';
+import { FaChurch } from 'react-icons/fa';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ const Login = () => {
             <div className="login-container">
                 <div className="login-card">
                     <div className="login-header">
-                        <div className="login-header-icon"><IoBookSharp /></div>
+                        <div className="login-header-icon"><FaChurch /></div>
                         <h1>هناك يكون خادمي</h1>
                         <p>تسجيل الدخول</p>
                     </div>

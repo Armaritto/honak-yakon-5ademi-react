@@ -230,8 +230,25 @@
     background: #e6efff !important;
 }
 
-/* Custom indicator for solved dates if needed */
-/* Since tileDisabled is used in JSX, they are already greyed out */
+/* Green shadow for solved dates */
+.react-calendar__tile.solved-date {
+    background-color: #f0fdf4 !important;
+    color: #16a34a !important;
+    opacity: 0.8;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2),
+        0 4px 12px rgba(34, 197, 94, 0.15);
+    position: relative;
+}
+
+.react-calendar__tile.solved-date::after {
+    content: '✓';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.7rem;
+    color: var(--secondary-green);
+    font-weight: bold;
+}
 
 .quiz-content {
     display: flex;

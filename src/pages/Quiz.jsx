@@ -160,14 +160,39 @@ const Quiz = () => {
         );
     };
 
+    // Parse VITE_START_DATE from .env (format: DD-MM-YYYY)
+    const getStartDate = () => {
+        const startDateStr = import.meta.env.VITE_START_DATE;
+        if (!startDateStr) return null;
+
+        const [day, month, year] = startDateStr.split('-');
+        return new Date(year, month - 1, day); // month is 0-indexed in JS Date
+    };
+
     const tileDisabled = ({ date, view }) => {
         if (view === 'month') {
             // Disable future dates
             if (date > new Date()) return true;
+
+            // Disable dates before START_DATE
+            const startDate = getStartDate();
+            if (startDate) {
+                const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                const startDateOnly = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+                if (dateOnly < startDateOnly) return true;
+            }
+
             // Disable solved dates
             return isDateSolved(date);
         }
         return false;
+    };
+
+    const tileClassName = ({ date, view }) => {
+        if (view === 'month' && isDateSolved(date)) {
+            return 'solved-date';
+        }
+        return null;
     };
 
     const handleDateSelect = (date) => {
@@ -256,7 +281,9 @@ const Quiz = () => {
                                     <Calendar
                                         onChange={handleDateSelect}
                                         tileDisabled={tileDisabled}
+                                        tileClassName={tileClassName}
                                         locale="ar"
+                                        showNeighboringMonth={false}
                                     />
                                 </div>
                             </div>
