@@ -1,6 +1,6 @@
 .admin-login-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-blue);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +62,7 @@
     font-weight: 700;
     color: #1E293B;
     margin-bottom: var(--spacing-sm);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-blue);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -103,7 +103,7 @@
 
 .form-group input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--primary-blue);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -142,7 +142,7 @@
 /* Submit Button */
 .btn-admin-submit {
     padding: var(--spacing-md) var(--spacing-xl);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-blue);
     color: white;
     border-radius: var(--radius-md);
     font-weight: 700;

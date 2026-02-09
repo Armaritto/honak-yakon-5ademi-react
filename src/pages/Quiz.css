@@ -39,22 +39,23 @@
 
 .quiz-controls {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
     margin-bottom: var(--spacing-xl);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
 }
 
 .control-btn {
     background-color: var(--white);
     color: var(--text-secondary);
-    padding: var(--spacing-sm) var(--spacing-xl);
+    padding: var(--spacing-xs) var(--spacing-md);
     border-radius: var(--radius-full);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--medium-gray);
     transition: all var(--transition-normal);
+    white-space: nowrap;
 }
 
 .control-btn:hover {
@@ -349,10 +350,10 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    padding: var(--spacing-lg) var(--spacing-xl);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: #ffd7001a;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(0, 0, 128, 0.1);
+    border: 1px solid gold;
     margin-top: var(--spacing-lg);
     cursor: pointer;
     transition: all var(--transition-normal);
@@ -376,8 +377,7 @@
 }
 
 .form-checkbox:hover {
-    border-color: var(--primary-blue);
-    box-shadow: 0 6px 20px rgba(0, 0, 128, 0.12);
+    border-color: 1px solid gold;
     transform: translateY(-2px);
 }
 
@@ -480,6 +480,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-radius: var(--radius-lg);
+    background: var(--primary-blue);
 }
 
 @media (max-width: 768px) {
@@ -488,14 +489,111 @@
     }
 
     .quiz-controls {
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
     }
 
     .control-btn {
-        width: 100%;
+        font-size: 0.8rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
     }
 
     .quiz-stats {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Already Solved Message Styling */
+.already-solved-message {
+    background-color: var(--white);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solved-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--secondary-green) 0%, #27ae60 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    margin: 0 auto var(--spacing-xl);
+    box-shadow: 0 10px 30px rgba(39, 174, 96, 0.3);
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.already-solved-message h2 {
+    color: var(--primary-blue);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+}
+
+.already-solved-message p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+.solved-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.solved-actions button {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+
+.solved-actions .btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+}
+
+.solved-actions .btn-secondary:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.solved-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+    .solved-actions {
+        flex-direction: column;
+    }
+
+    .solved-actions button {
+        width: 100%;
     }
 }

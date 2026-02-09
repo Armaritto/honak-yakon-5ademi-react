@@ -22,6 +22,7 @@ const Quiz = () => {
     const [quizMode, setQuizMode] = useState('today'); // 'today', 'previous', 'date'
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isTodayQuizSolved, setIsTodayQuizSolved] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,7 +33,16 @@ const Quiz = () => {
     const fetchSolvedDates = async () => {
         try {
             const dates = await getSolvedQuizDates();
-            setSolvedDates(dates.map((d) => new Date(d)));
+            const parsedDates = dates.map((d) => new Date(d));
+            setSolvedDates(parsedDates);
+
+            // Check if today's quiz is already solved
+            const today = new Date();
+            const isSolved = parsedDates.some(
+                (solvedDate) =>
+                    solvedDate.toDateString() === today.toDateString()
+            );
+            setIsTodayQuizSolved(isSolved);
         } catch (err) {
             console.error('Error fetching solved dates:', err);
         }
@@ -232,7 +242,7 @@ const Quiz = () => {
                             className="control-btn"
                             onClick={() => setShowCalendar(!showCalendar)}
                         >
-                            اختر تاريخ التقييم
+                            اختر تاريخ المتابعة
                         </button>
                     </div>
 
@@ -240,7 +250,7 @@ const Quiz = () => {
                         <div className="modal-overlay" onClick={() => setShowCalendar(false)}>
                             <div className="calendar-modal" onClick={(e) => e.stopPropagation()}>
                                 <div className="modal-header">
-                                    <h3>اختر تاريخ التقييم</h3>
+                                    <h3>اختر تاريخ المتابعة</h3>
                                     <button className="modal-close" onClick={() => setShowCalendar(false)}>✕</button>
                                 </div>
                                 <div className="calendar-container">
@@ -254,7 +264,14 @@ const Quiz = () => {
                         </div>
                     )}
 
-                    {quiz && quiz.questionDTOS.length > 0 && (
+                    {/* Show "Already Solved" message if today's quiz is solved in 'today' mode */}
+                    {quizMode === 'today' && isTodayQuizSolved ? (
+                        <div className="already-solved-message">
+                            <div className="solved-icon">✓</div>
+                            <h2>تم إكمال متابعة اليوم بنجاح!</h2>
+                            <p>شكراً لك على متابعة خدمتك الروحية.</p>
+                        </div>
+                    ) : quiz && quiz.questionDTOS.length > 0 ? (
                         <div className="quiz-content">
                             <form onSubmit={handleSubmit} className="quiz-form">
                                 <div className="quiz-section">
@@ -282,7 +299,7 @@ const Quiz = () => {
                                     <label className="form-checkbox">
                                         <input type="checkbox" id="confirm-checkbox" />
                                         <span className="checkbox-custom"></span>
-                                        <span className="checkbox-label">أقر بأن كافة الإجابات اليوم</span>
+                                        <span className="checkbox-label">أقر بأنني قرأت اصحاح اليوم</span>
                                     </label>
 
                                     <button
@@ -302,13 +319,11 @@ const Quiz = () => {
                                 </div>
                             </form>
                         </div>
-                    )}
-
-                    {quiz && quiz.questionDTOS.length === 0 && (
+                    ) : quiz && quiz.questionDTOS.length === 0 ? (
                         <div className="no-questions">
                             <p>لا توجد أسئلة متاحة لهذا التاريخ</p>
                         </div>
-                    )}
+                    ) : null}
                 </div>
             </div>
         </>
