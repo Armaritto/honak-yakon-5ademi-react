@@ -7,6 +7,7 @@ const AdminController = () => {
     const navigate = useNavigate();
     // State for creating quiz
     const [quizDate, setQuizDate] = useState('');
+    const [quizName, setQuizName] = useState('');
     const [questions, setQuestions] = useState([{ text: '' }]);
     const [creating, setCreating] = useState(false);
     const [createMessage, setCreateMessage] = useState({ type: '', text: '' });
@@ -59,6 +60,7 @@ const AdminController = () => {
 
             // Build QuizCreateDTO with QuestionDTO objects
             const quizDTO = {
+                name: quizName,
                 questionDTOS: questions
                     .filter(q => q.text.trim() !== '')
                     .map(q => ({
@@ -72,9 +74,10 @@ const AdminController = () => {
 
             const response = await api.post('/admin/quiz', quizDTO);
 
-            setCreateMessage({ type: 'success', text: 'تم إنشاء الاختبار بنجاح!' });
+            setCreateMessage({ type: 'success', text: 'تم إنشاء المتابعة بنجاح!' });
 
             // Reset form
+            setQuizName('');
             setQuizDate('');
             setQuestions([{ text: '' }]);
 
@@ -86,7 +89,7 @@ const AdminController = () => {
             console.error('Error response status:', err.response?.status);
 
             // Handle error message properly - convert object to string if needed
-            let errorMessage = 'فشل في إنشاء الاختبار. حاول مرة أخرى.';
+            let errorMessage = 'فشل في إنشاء المتابعة. حاول مرة أخرى.';
 
             if (err.response?.data) {
                 console.log('Backend error data:', err.response.data);
@@ -127,7 +130,7 @@ const AdminController = () => {
                 params: { id: deleteId }
             });
 
-            setDeleteMessage({ type: 'success', text: 'تم حذف الاختبار بنجاح!' });
+            setDeleteMessage({ type: 'success', text: 'تم حذف المتابعة بنجاح!' });
             setDeleteId('');
 
             setTimeout(() => setDeleteMessage({ type: '', text: '' }), 5000);
@@ -135,7 +138,7 @@ const AdminController = () => {
             console.error('Error deleting quiz:', err);
 
             // Handle error message properly - convert object to string if needed
-            let errorMessage = 'فشل في حذف الاختبار. تأكد من صحة المعرف.';
+            let errorMessage = 'فشل في حذف المتابعة. تأكد من صحة المعرف.';
 
             if (err.response?.data) {
                 if (typeof err.response.data === 'string') {
@@ -167,7 +170,6 @@ const AdminController = () => {
                         <div className="admin-header-content">
                             <div>
                                 <h1>لوحة التحكم الإدارية</h1>
-                                <p>إدارة الاختبارات - إنشاء وحذف</p>
                             </div>
                             <button onClick={handleLogout} className="btn-logout">
                                 تسجيل الخروج
@@ -179,7 +181,7 @@ const AdminController = () => {
                         {/* Create Quiz Section */}
                         <div className="admin-section">
                             <div className="section-header">
-                                <h2>إنشاء اختبار جديد</h2>
+                                <h2>إنشاء متابعة جديدة</h2>
                             </div>
 
                             {createMessage.text && (
@@ -190,7 +192,18 @@ const AdminController = () => {
 
                             <form onSubmit={handleCreateQuiz} className="admin-form">
                                 <div className="form-group">
-                                    <label htmlFor="quizDate">تاريخ الاختبار</label>
+                                    <label htmlFor="quizName">عنوان المتابعة</label>
+                                    <input
+                                        type="text"
+                                        id="quizName"
+                                        value={quizName}
+                                        onChange={(e) => setQuizName(e.target.value)}
+                                        placeholder="اكتب عنوان المتابعة"
+                                        className="form-input"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="quizDate">تاريخ المتابعة</label>
                                     <input
                                         type="date"
                                         id="quizDate"
@@ -249,7 +262,7 @@ const AdminController = () => {
                                             جاري الإنشاء...
                                         </>
                                     ) : (
-                                        'إنشاء الاختبار'
+                                        'إنشاء المتابعة'
                                     )}
                                 </button>
                             </form>

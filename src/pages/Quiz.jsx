@@ -315,7 +315,7 @@ const Quiz = () => {
                             <form onSubmit={handleSubmit} className="quiz-form">
                                 <div className="quiz-section">
                                     <div className="section-header">
-                                        <h3>أسئلة التأمل</h3>
+                                        <h3>{quiz?.name || 'أسئلة التأمل'}</h3>
                                     </div>
 
                                     {quiz.questionDTOS.map((question, index) => (
