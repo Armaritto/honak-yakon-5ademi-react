@@ -24,6 +24,7 @@ const Quiz = () => {
     const [quizMode, setQuizMode] = useState('today'); // 'today', 'previous', 'date'
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [noQuizAvailable, setNoQuizAvailable] = useState(false);
     const [isTodayQuizSolved, setIsTodayQuizSolved] = useState(false);
     const navigate = useNavigate();
 
@@ -56,13 +57,19 @@ const Quiz = () => {
 
     const fetchTodayQuiz = async () => {
         setLoading(true);
+        setNoQuizAvailable(false);
         try {
             const data = await getTodayQuiz();
+            setNoQuizAvailable(false);
             setQuiz(data);
             setQuizMode('today');
             initializeAnswers(data?.questionDTOS || []);
         } catch (err) {
             console.error('Error fetching today quiz:', err);
+            if ((err?.response && err.response.status === 404) || err?.status === 404 || (err?.message && err.message.includes('404'))) {
+                setNoQuizAvailable(true);
+                setQuiz(null);
+            }
         } finally {
             setLoading(false);
         }
@@ -70,13 +77,19 @@ const Quiz = () => {
 
     const fetchPreviousQuiz = async () => {
         setLoading(true);
+        setNoQuizAvailable(false);
         try {
             const data = await getPreviousQuiz();
+            setNoQuizAvailable(false);
             setQuiz(data);
             setQuizMode('previous');
             initializeAnswers(data?.questionDTOS || []);
         } catch (err) {
             console.error('Error fetching previous quiz:', err);
+            if ((err?.response && err.response.status === 404) || err?.status === 404 || (err?.message && err.message.includes('404'))) {
+                setNoQuizAvailable(true);
+                setQuiz(null);
+            }
         } finally {
             setLoading(false);
         }
@@ -84,14 +97,22 @@ const Quiz = () => {
 
     const fetchQuizByDate = async (date) => {
         setLoading(true);
+        setNoQuizAvailable(false);
         try {
             const data = await getQuizByDate(date);
+            setNoQuizAvailable(false);
             setQuiz(data);
             setQuizMode('date');
             initializeAnswers(data?.questionDTOS || []);
             setShowCalendar(false);
         } catch (err) {
             console.error('Error fetching quiz by date:', err);
+            if ((err?.response && err.response.status === 404) || err?.status === 404 || (err?.message && err.message.includes('404'))) {
+                setNoQuizAvailable(true);
+                setQuiz(null);
+                // keep the calendar closed after a 404 so it doesn't reopen automatically
+                setShowCalendar(false);
+            }
         } finally {
             setLoading(false);
         }
@@ -309,6 +330,12 @@ const Quiz = () => {
                             <div className="solved-icon">✓</div>
                             <h2>تم إكمال متابعة اليوم بنجاح!</h2>
                             <p>شكراً لك على متابعة خدمتك الروحية.</p>
+                        </div>
+                    ) : noQuizAvailable ? (
+                        <div className="already-solved-message">
+                            <div className="notfound-icon">⚠</div>
+                            <h2>لا توجد متابعات متاحة حتى الآن</h2>
+                            <p>لم يتم نشر أي متابعة حتى الآن، يرجى العودة لاحقاً.</p>
                         </div>
                     ) : quiz && quiz.questionDTOS && quiz.questionDTOS.length > 0 ? (
                         <div className="quiz-content">
