@@ -171,9 +171,17 @@ const AdminController = () => {
                             <div>
                                 <h1>لوحة التحكم الإدارية</h1>
                             </div>
-                            <button onClick={handleLogout} className="btn-logout">
-                                تسجيل الخروج
-                            </button>
+                            <div className="header-buttons">
+                                <button
+                                    onClick={() => navigate('/admin-controller/responses')}
+                                    className="btn-responses"
+                                >
+                                    عرض الإجابات
+                                </button>
+                                <button onClick={handleLogout} className="btn-logout">
+                                    تسجيل الخروج
+                                </button>
+                            </div>
                         </div>
                     </div>
 

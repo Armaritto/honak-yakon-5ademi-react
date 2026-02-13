@@ -5,6 +5,7 @@ import Quiz from './pages/Quiz';
 import Progress from './pages/Progress';
 import AdminLogin from './pages/AdminLogin';
 import AdminController from './pages/AdminController';
+import AdminResponses from './pages/AdminResponses';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 import './App.css';
@@ -39,6 +40,14 @@ function App() {
             element={
               <AdminProtectedRoute>
                 <AdminController />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-controller/responses"
+            element={
+              <AdminProtectedRoute>
+                <AdminResponses />
               </AdminProtectedRoute>
             }
           />
