@@ -112,7 +112,7 @@ const Progress = () => {
                         </div>
                         <div className="chart-container">
                             {(viewMode === 'today' ? todayData : totalData).length > 0 ? (
-                                <ResponsiveContainer width="100%" height={350}>
+                                <ResponsiveContainer width="100%" height={Math.max(350, (viewMode === 'today' ? todayData : totalData).length * 25)}>
                                     <BarChart
                                         data={viewMode === 'today' ? todayData : totalData}
                                         layout="vertical"
@@ -135,13 +135,13 @@ const Progress = () => {
                                         <YAxis
                                             type="category"
                                             dataKey="name"
-                                            tick={{ fill: '#374151', fontSize: 11, fontFamily: 'Cairo, sans-serif' }}
+                                            tick={{ fill: '#374151', fontSize: 10, fontFamily: 'Cairo, sans-serif' }}
                                             stroke="#E5E7EB"
                                             axisLine={false}
                                             tickLine={false}
-                                            width={70}
+                                            width={80}
                                         />
-                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="var(--primary-blue)">
+                                        <Bar dataKey="value" radius={[0, 8, 8, 0]} fill="var(--primary-blue)" barSize={15}>
                                             {(viewMode === 'today' ? todayData : totalData).map((entry, index) => (
                                                 <Cell key={`cell-${index}`} fill="var(--primary-blue)" />
                                             ))}

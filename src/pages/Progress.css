@@ -1,5 +1,6 @@
 .progress-page {
-    min-height: calc(100vh - 70px);
+    height: calc(100vh - 70px);
+    overflow: hidden;
     background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
     padding: var(--spacing-2xl);
 }
@@ -123,7 +124,20 @@
     border-radius: 12px;
     padding: var(--spacing-lg);
     min-height: 400px;
+    max-height: 600px;
+    overflow-y: auto;
     direction: ltr;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chart-container * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 /* No Data State */
@@ -203,7 +217,9 @@
     .chart-container {
         padding: var(--spacing-sm);
         overflow-x: auto;
+        overflow-y: auto;
         min-height: 350px;
+        max-height: 500px;
     }
 }
 
@@ -250,6 +266,7 @@
     .chart-container {
         padding: var(--spacing-xs);
         min-height: 320px;
+        max-height: 450px;
     }
 
     .progress-charts-wrapper {
