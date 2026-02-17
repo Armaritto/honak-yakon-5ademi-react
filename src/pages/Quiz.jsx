@@ -188,6 +188,17 @@ const Quiz = () => {
         );
     };
 
+    // Check if the current quiz is already solved
+    const isCurrentQuizSolved = () => {
+        if (!quiz || !quiz.date) return false;
+
+        const quizDate = new Date(quiz.date);
+        return solvedDates.some(
+            (solvedDate) =>
+                solvedDate.toDateString() === quizDate.toDateString()
+        );
+    };
+
     // Parse VITE_START_DATE from .env (format: DD-MM-YYYY)
     const getStartDate = () => {
         const startDateStr = import.meta.env.VITE_START_DATE;
@@ -324,8 +335,8 @@ const Quiz = () => {
                         </div>
                     )}
 
-                    {/* Show "Already Solved" message if today's quiz is solved in 'today' mode */}
-                    {quizMode === 'today' && isTodayQuizSolved ? (
+                    {/* Show "Already Solved" message if the current quiz has been solved */}
+                    {isCurrentQuizSolved() ? (
                         <div className="already-solved-message">
                             <div className="solved-icon">✓</div>
                             <h2>تم إكمال متابعة اليوم بنجاح!</h2>
