@@ -65,5 +65,5 @@ export const getKhedmaName = () => {
 
 export const isAmmaKhedma = () => {
     const khedmaName = getKhedmaName();
-    return khedmaName && khedmaName.trim() === 'عامة';
+    return khedmaName && khedmaName.trim() === 'خدمات أخرى';
 };

@@ -24,7 +24,7 @@ const Progress = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Redirect عامة khedma users away from the progress page
+        // Redirect خدمات أخرى khedma users away from the progress page
         if (isAmmaKhedma()) {
             navigate('/quiz', { replace: true });
             return;
@@ -43,9 +43,9 @@ const Progress = () => {
                 api.get('/progress/total')
             ]);
 
-            // Transform the ProgressDTO data to chart format, filtering out عامة khedma
+            // Transform the ProgressDTO data to chart format, filtering out خدمات أخرى khedma
             setTodayData(todayResponse.data
-                .filter(item => item.name && item.name.trim() !== 'عامة')
+                .filter(item => item.name && item.name.trim() !== 'خدمات أخرى')
                 .map(item => ({
                     name: item.name,
                     value: item.progress
@@ -53,7 +53,7 @@ const Progress = () => {
             );
 
             setTotalData(totalResponse.data
-                .filter(item => item.name && item.name.trim() !== 'عامة')
+                .filter(item => item.name && item.name.trim() !== 'خدمات أخرى')
                 .map(item => ({
                     name: item.name,
                     value: item.progress
