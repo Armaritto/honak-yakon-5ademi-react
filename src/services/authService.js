@@ -2,11 +2,14 @@ import api from '../config/api';
 
 export const login = async (username, password) => {
     const response = await api.post('/login', { username, password });
-    const { JWTToken, userId, username: userName } = response.data;
+    const { JWTToken, userId, username: userName, khedmaName } = response.data;
 
     localStorage.setItem('jwtToken', JWTToken);
     localStorage.setItem('userId', userId);
     localStorage.setItem('username', userName);
+    if (khedmaName !== undefined && khedmaName !== null) {
+        localStorage.setItem('khedmaName', khedmaName);
+    }
 
     return response.data;
 };
@@ -36,6 +39,7 @@ export const logout = () => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
+    localStorage.removeItem('khedmaName');
     localStorage.removeItem('isAdmin');
 };
 
@@ -53,4 +57,13 @@ export const getUserId = () => {
 
 export const isAdmin = () => {
     return localStorage.getItem('isAdmin') === 'true';
+};
+
+export const getKhedmaName = () => {
+    return localStorage.getItem('khedmaName');
+};
+
+export const isAmmaKhedma = () => {
+    const khedmaName = getKhedmaName();
+    return khedmaName && khedmaName.trim() === 'عامة';
 };

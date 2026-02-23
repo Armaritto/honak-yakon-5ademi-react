@@ -11,6 +11,8 @@ import {
 } from 'recharts';
 import Navbar from '../components/Navbar';
 import api from '../config/api';
+import { isAmmaKhedma } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 import './Progress.css';
 
 const Progress = () => {
@@ -19,8 +21,14 @@ const Progress = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [viewMode, setViewMode] = useState('today');
+    const navigate = useNavigate();
 
     useEffect(() => {
+        // Redirect عامة khedma users away from the progress page
+        if (isAmmaKhedma()) {
+            navigate('/quiz', { replace: true });
+            return;
+        }
         window.scrollTo(0, 0);
         fetchProgressData();
     }, []);
@@ -35,16 +43,22 @@ const Progress = () => {
                 api.get('/progress/total')
             ]);
 
-            // Transform the ProgressDTO data to chart format
-            setTodayData(todayResponse.data.map(item => ({
-                name: item.name,
-                value: item.progress
-            })));
+            // Transform the ProgressDTO data to chart format, filtering out عامة khedma
+            setTodayData(todayResponse.data
+                .filter(item => item.name && item.name.trim() !== 'عامة')
+                .map(item => ({
+                    name: item.name,
+                    value: item.progress
+                }))
+            );
 
-            setTotalData(totalResponse.data.map(item => ({
-                name: item.name,
-                value: item.progress
-            })));
+            setTotalData(totalResponse.data
+                .filter(item => item.name && item.name.trim() !== 'عامة')
+                .map(item => ({
+                    name: item.name,
+                    value: item.progress
+                }))
+            );
         } catch (err) {
             console.error('Error fetching progress data:', err);
             setError('فشل في تحميل البيانات. يرجى المحاولة مرة أخرى.');

@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { logout, getUsername } from '../services/authService';
+import { logout, getUsername, isAmmaKhedma } from '../services/authService';
 import { FaSignOutAlt, FaBookOpen, FaChartBar } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import './Navbar.css';
@@ -8,6 +8,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const username = getUsername();
+    const ammaUser = isAmmaKhedma();
 
     const handleLogout = () => {
         logout();
@@ -38,13 +39,15 @@ const Navbar = () => {
                     >
                         <FaBookOpen />
                     </Link>
-                    <Link
-                        to="/progress"
-                        className={`nav-icon-link ${isActive('/progress') ? 'active' : ''}`}
-                        title="الإحصائيات"
-                    >
-                        <FaChartBar />
-                    </Link>
+                    {!ammaUser && (
+                        <Link
+                            to="/progress"
+                            className={`nav-icon-link ${isActive('/progress') ? 'active' : ''}`}
+                            title="الإحصائيات"
+                        >
+                            <FaChartBar />
+                        </Link>
+                    )}
                     <button onClick={handleLogout} className="nav-icon-button" title="تسجيل الخروج">
                         <FaSignOutAlt />
                     </button>
