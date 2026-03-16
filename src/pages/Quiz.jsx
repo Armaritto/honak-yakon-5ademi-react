@@ -12,7 +12,13 @@ import {
 } from '../services/quizService';
 import { getUsername } from '../services/authService';
 import Navbar from '../components/Navbar';
+import { getSeasonalTheme } from '../utils/seasonalTheme';
 import './Quiz.css';
+
+const seasonalIcons = import.meta.glob('../assets/*.svg', {
+    eager: true,
+    import: 'default',
+});
 
 const Quiz = () => {
     const [quiz, setQuiz] = useState(null);
@@ -28,6 +34,9 @@ const Quiz = () => {
     const [isTodayQuizSolved, setIsTodayQuizSolved] = useState(false);
     const submitInProgressRef = useRef(false);
     const navigate = useNavigate();
+    const { seasonIconFile } = getSeasonalTheme();
+    const currentSeasonIcon =
+        seasonalIcons[`../assets/${seasonIconFile}`] || seasonalIcons['../assets/1.svg'];
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -306,7 +315,10 @@ const Quiz = () => {
                 <div className="quiz-container">
                     <div className="quiz-header">
                         <div className="quiz-header-content">
-                            <h1>اهلا {getUsername().trim().split(' ')[0]}</h1>
+                            <h1 className="quiz-greeting">
+                                <img src={currentSeasonIcon} alt="Season icon" className="quiz-season-icon" />
+                                <span>اهلا {getUsername().trim().split(' ')[0]}</span>
+                            </h1>
                             <div className="points-display">
                                 <FaFire className="trophy-icon" />
                                 <span className="points-count">{solvedDates.length}</span>
