@@ -4,6 +4,8 @@
   /* Primary Colors from mockup */
   --primary-blue: #000080;
   --primary-dark-blue: #000066;
+  --primary-mid-color: #1a1a6e;
+  --primary-shadow-rgb: 0, 0, 128;
   --primary-yellow: #FFD700;
   --primary-light-yellow: #FFEB3B;
 
@@ -168,7 +170,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+  box-shadow: 0 0 0 3px rgba(var(--primary-shadow-rgb), 0.1);
 }
 
 /* Common Card Styles */

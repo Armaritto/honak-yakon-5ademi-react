@@ -1,6 +1,6 @@
 .navbar {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, #1a1a6e 50%, var(--primary-dark-blue) 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 128, 0.3);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-mid-color) 50%, var(--primary-dark-blue) 100%);
+    box-shadow: 0 4px 20px rgba(var(--primary-shadow-rgb), 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -238,15 +238,15 @@
 .nav-icon-link.active {
     background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
     border-color: #FFD700;
-    color: #00008B;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    color: var(--primary-blue);
+    box-shadow: 0 4px 15px rgba(var(--primary-shadow-rgb), 0.35);
 }
 
 .nav-icon-link.active:hover {
     background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
-    color: #00008B;
+    color: var(--primary-blue);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 6px 20px rgba(var(--primary-shadow-rgb), 0.45);
 }
 
 .nav-icon-link:active,
