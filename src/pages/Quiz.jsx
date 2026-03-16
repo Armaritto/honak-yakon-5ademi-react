@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -26,6 +26,7 @@ const Quiz = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [noQuizAvailable, setNoQuizAvailable] = useState(false);
     const [isTodayQuizSolved, setIsTodayQuizSolved] = useState(false);
+    const submitInProgressRef = useRef(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -136,7 +137,20 @@ const Quiz = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (submitInProgressRef.current || submitting) {
+            return;
+        }
+
+        if (isCurrentQuizSolved()) {
+            setSuccessMessage('تم تسجيل الإجابات بنجاح!');
+            setTimeout(() => setSuccessMessage(''), 5000);
+            return;
+        }
+
+        submitInProgressRef.current = true;
         setSubmitting(true);
+        setErrorMessage('');
 
         try {
             console.log('Quiz data:', quiz);
@@ -174,9 +188,35 @@ const Quiz = () => {
             fetchTodayQuiz();
         } catch (err) {
             console.error('Error submitting response:', err);
-            setErrorMessage('حدث خطأ أثناء تسجيل الإجابات. تأكد من تشغيل الخادم.');
-            setTimeout(() => setErrorMessage(''), 5000);
+
+            const status = err?.response?.status;
+            const backendMessage =
+                (typeof err?.response?.data === 'string' && err.response.data) ||
+                err?.response?.data?.message ||
+                err?.response?.data?.error ||
+                err?.message ||
+                '';
+            const normalizedMessage = String(backendMessage).toLowerCase();
+
+            const isAlreadySubmittedError =
+                status === 409 ||
+                normalizedMessage.includes('already submitted') ||
+                normalizedMessage.includes('already solved') ||
+                normalizedMessage.includes('already') ||
+                normalizedMessage.includes('تم التسجيل') ||
+                normalizedMessage.includes('تمت الإجابة');
+
+            if (isAlreadySubmittedError) {
+                setSuccessMessage('تم تسجيل الإجابات مسبقاً لهذا اليوم.');
+                setTimeout(() => setSuccessMessage(''), 5000);
+                fetchSolvedDates();
+                fetchTodayQuiz();
+            } else {
+                setErrorMessage('حدث خطأ أثناء تسجيل الإجابات. تأكد من تشغيل الخادم.');
+                setTimeout(() => setErrorMessage(''), 5000);
+            }
         } finally {
+            submitInProgressRef.current = false;
             setSubmitting(false);
         }
     };
