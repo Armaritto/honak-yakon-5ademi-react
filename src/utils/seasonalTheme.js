@@ -17,7 +17,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 128',
       seasonIconFile: 'cross.svg'
     }
-  },
+  }, // cross day
   {
     start: '03-21',
     end: '03-21',
@@ -28,7 +28,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 128',
       seasonIconFile: 'frbishoy.svg'
     }
-  },
+  }, // frbishoy
   {
     start: '03-22',
     end: '03-22',
@@ -39,7 +39,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 128',
       seasonIconFile: 'me5ala3.svg'
     }
-  },
+  }, // me5ala3
   {
     start: '03-29',
     end: '03-29',
@@ -50,7 +50,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 128',
       seasonIconFile: 'a3ma.svg'
     }
-  },
+  }, // a3ma
   {
     start: '04-05',
     end: '04-05',
@@ -61,7 +61,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '21, 128, 61',
       seasonIconFile: 'sunday.svg'
     }
-  },
+  }, // holy sunday
   {
     start: '04-06',
     end: '04-08',
@@ -72,7 +72,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 0',
       seasonIconFile: 'holyweek.svg'
     }
-  },
+  }, // holy week
   {
     start: '04-09',
     end: '04-09',
@@ -83,7 +83,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 0',
       seasonIconFile: 'thursday.svg'
     }
-  },
+  }, // holy thursday
   {
     start: '04-10',
     end: '04-10',
@@ -94,7 +94,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '0, 0, 0',
       seasonIconFile: 'friday.svg'
     }
-  },
+  }, // holy friday
   {
     start: '04-11',
     end: '05-31',
@@ -105,7 +105,7 @@ export const SEASONAL_SCHEDULE = [
       primaryShadowRgb: '127, 29, 29',
       seasonIconFile: 'risen.svg'
     }
-  }
+  } // ressurection season
 ]
 
 const monthDayToValue = (monthDay) => {
