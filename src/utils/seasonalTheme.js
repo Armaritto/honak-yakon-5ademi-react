@@ -52,7 +52,7 @@ export const SEASONAL_SCHEDULE = [
     }
   }, // a3ma
   {
-    start: '04-05',
+    start: '04-04',
     end: '04-05',
     theme: {
       primaryBlue: '#15803d',
