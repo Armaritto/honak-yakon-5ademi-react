@@ -8,6 +8,28 @@ const DEFAULT_THEME = {
 
 export const SEASONAL_SCHEDULE = [
   {
+    start: '03-18',
+    end: '03-19',
+    theme: {
+      primaryBlue: '#000080',
+      primaryDarkBlue: '#000066',
+      primaryMidColor: '#1a1a6e',
+      primaryShadowRgb: '0, 0, 128',
+      seasonIconFile: 'cross.svg'
+    }
+  },
+  {
+    start: '03-21',
+    end: '03-21',
+    theme: {
+      primaryBlue: '#000080',
+      primaryDarkBlue: '#000066',
+      primaryMidColor: '#1a1a6e',
+      primaryShadowRgb: '0, 0, 128',
+      seasonIconFile: 'frbishoy.svg'
+    }
+  },
+  {
     start: '04-05',
     end: '04-05',
     theme: {
