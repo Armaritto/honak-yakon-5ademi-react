@@ -154,14 +154,7 @@ const Register = () => {
                             className="btn-primary register-submit"
                             disabled={loading}
                         >
-                            {loading ? (
-                                <>
-                                    <span className="spinner"></span>
-                                    جاري التسجيل...
-                                </>
-                            ) : (
-                                'تسجيل الحساب'
-                            )}
+                            تسجيل الحساب
                         </button>
                     </form>
 

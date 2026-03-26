@@ -436,14 +436,7 @@ const Quiz = () => {
                                         className="btn-primary submit-quiz"
                                         disabled={submitting}
                                     >
-                                        {submitting ? (
-                                            <>
-                                                <span className="spinner"></span>
-                                                جاري التسجيل...
-                                            </>
-                                        ) : (
-                                            'تسجيل'
-                                        )}
+                                        تسجيل
                                     </button>
                                 </div>
                             </form>

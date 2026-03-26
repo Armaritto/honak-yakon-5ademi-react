@@ -89,14 +89,7 @@ const Login = () => {
                             className="btn-primary login-submit"
                             disabled={loading}
                         >
-                            {loading ? (
-                                <>
-                                    <span className="spinner"></span>
-                                    جاري تسجيل الدخول...
-                                </>
-                            ) : (
-                                'تسجيل الدخول'
-                            )}
+                            تسجيل الدخول
                         </button>
                     </form>
 

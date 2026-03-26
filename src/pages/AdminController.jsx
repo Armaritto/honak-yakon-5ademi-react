@@ -264,14 +264,7 @@ const AdminController = () => {
                                     disabled={creating}
                                     className="btn-primary"
                                 >
-                                    {creating ? (
-                                        <>
-                                            <span className="spinner-small"></span>
-                                            جاري الإنشاء...
-                                        </>
-                                    ) : (
-                                        'إنشاء المتابعة'
-                                    )}
+                                    إنشاء المتابعة
                                 </button>
                             </form>
                         </div>

@@ -134,14 +134,7 @@ const AdminLogin = () => {
                             className="btn-admin-submit"
                             disabled={loading}
                         >
-                            {loading ? (
-                                <>
-                                    <span className="spinner-small"></span>
-                                    جاري التحقق...
-                                </>
-                            ) : (
-                                'تسجيل الدخول'
-                            )}
+                            تسجيل الدخول
                         </button>
                     </form>
 
