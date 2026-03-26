@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { getSeasonalTheme } from './utils/seasonalTheme'
+import { initializeStoredFont } from './utils/fontPreferences'
 
 const applySeasonalPrimaryTheme = () => {
   const { primaryBlue, primaryDarkBlue, primaryMidColor, primaryShadowRgb } = getSeasonalTheme()
@@ -15,6 +16,7 @@ const applySeasonalPrimaryTheme = () => {
 }
 
 applySeasonalPrimaryTheme()
+initializeStoredFont()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

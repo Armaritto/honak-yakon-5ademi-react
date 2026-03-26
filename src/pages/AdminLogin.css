@@ -97,7 +97,7 @@
     border: 2px solid #E5E7EB;
     border-radius: var(--radius-md);
     font-size: 1rem;
-    font-family: 'Cairo', sans-serif;
+    font-family: var(--app-font-family);
     transition: all var(--transition-normal);
 }
 

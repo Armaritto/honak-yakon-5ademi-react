@@ -200,7 +200,7 @@
 /* React Calendar Modern Styling */
 .calendar-container .react-calendar {
     border: none;
-    font-family: 'Cairo', sans-serif;
+    font-family: var(--app-font-family);
     width: 100%;
 }
 
@@ -411,7 +411,7 @@
     border: 1px solid var(--medium-gray);
     border-radius: var(--radius-md);
     font-size: 1rem;
-    font-family: 'Cairo', sans-serif;
+    font-family: var(--app-font-family);
     transition: all var(--transition-fast);
     direction: rtl;
     resize: vertical;
