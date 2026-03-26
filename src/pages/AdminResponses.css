@@ -233,13 +233,15 @@
     overflow-y: auto;
     max-height: 600px;
     border-radius: 10px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
 }
 
 .responses-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    min-width: 600px;
+    min-width: max-content;
 }
 
 .responses-table thead {
@@ -255,7 +257,9 @@
     text-align: right;
     font-weight: 600;
     border-bottom: 2px solid #5568d3;
-    white-space: nowrap;
+    white-space: normal;
+    vertical-align: top;
+    min-width: 180px;
 }
 
 .responses-table th:first-child {
@@ -268,8 +272,41 @@
 
 .question-header {
     max-width: 300px;
-    white-space: normal;
+    display: flex;
+    gap: 4px;
+    align-items: flex-start;
     line-height: 1.4;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    text-align: right;
+    cursor: pointer;
+}
+
+.question-index {
+    flex-shrink: 0;
+}
+
+.question-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: 4.2em;
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.question-text.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    max-height: none;
+    overflow: visible;
 }
 
 .responses-table td {
@@ -403,11 +440,27 @@
 
     .responses-table {
         font-size: 0.9rem;
+        min-width: 700px;
     }
 
     .responses-table th,
     .responses-table td {
         padding: var(--spacing-sm);
+        min-width: 130px;
+    }
+
+    .responses-table th.sticky-col,
+    .responses-table td.sticky-col,
+    .responses-table th.sticky-col-2,
+    .responses-table td.sticky-col-2 {
+        position: static;
+        right: auto;
+        box-shadow: none;
+    }
+
+    .responses-table thead .sticky-col,
+    .responses-table thead .sticky-col-2 {
+        z-index: auto;
     }
 
     .question-header {
@@ -415,8 +468,13 @@
         font-size: 0.85rem;
     }
 
+    .question-text {
+        -webkit-line-clamp: 2;
+        max-height: 2.8em;
+    }
+
     .sticky-col-2 {
-        right: 80px;
+        right: auto;
     }
 
     .pagination {
@@ -453,11 +511,16 @@
     }
 
     .sticky-col-2 {
-        right: 70px;
+        right: auto;
     }
 
     .question-header {
         max-width: 150px;
         font-size: 0.75rem;
+    }
+
+    .question-text {
+        -webkit-line-clamp: 2;
+        max-height: 2.8em;
     }
 }

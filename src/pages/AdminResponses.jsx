@@ -16,6 +16,7 @@ const AdminResponses = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [totalElements, setTotalElements] = useState(0);
+    const [expandedQuestions, setExpandedQuestions] = useState({});
 
     // Initialize with today's date
     useEffect(() => {
@@ -128,6 +129,13 @@ const AdminResponses = () => {
         setCurrentPage(0);
     };
 
+    const toggleQuestionExpand = (index) => {
+        setExpandedQuestions((prev) => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
+
     return (
         <div className="admin-responses-page">
             <div className="admin-responses-container">
@@ -203,13 +211,26 @@ const AdminResponses = () => {
                                             <tr>
                                                 <th className="sticky-col">المستخدم</th>
                                                 <th className="sticky-col-2">الخدمة</th>
-                                                {questions.map((question, index) => (
-                                                    <th key={index}>
-                                                        <div className="question-header">
-                                                            س{index + 1}: {question.text}
-                                                        </div>
-                                                    </th>
-                                                ))}
+                                                {questions.map((question, index) => {
+                                                    const isExpanded = !!expandedQuestions[index];
+
+                                                    return (
+                                                        <th key={index}>
+                                                            <button
+                                                                type="button"
+                                                                className="question-header"
+                                                                onClick={() => toggleQuestionExpand(index)}
+                                                                aria-expanded={isExpanded}
+                                                                title={isExpanded ? 'إخفاء السؤال الكامل' : 'عرض السؤال الكامل'}
+                                                            >
+                                                                <span className="question-index">س{index + 1}:</span>
+                                                                <span className={`question-text ${isExpanded ? 'expanded' : ''}`}>
+                                                                    {question.text}
+                                                                </span>
+                                                            </button>
+                                                        </th>
+                                                    );
+                                                })}
                                             </tr>
                                         </thead>
                                         <tbody>
